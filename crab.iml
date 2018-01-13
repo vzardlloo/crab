@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../crab/target/classes" />
+    <output-test url="file://$MODULE_DIR$/../crab/target/test-classes" />
+    <content url="file://$MODULE_DIR$/../crab">
+      <sourceFolder url="file://$MODULE_DIR$/../crab/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../crab/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../crab/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../crab/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.bladejava:blade-kit:1.2.8-alpha" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.16.18" level="project" />
+  </component>
+</module>
