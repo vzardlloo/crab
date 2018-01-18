@@ -8,9 +8,10 @@ public class Test {
     public static void main(String[] args) {
 
         try{
-            Crab crab = new Crab(10000);
-            crab.addHandler(new AssetHandler("D:\\work"));
-            crab.start();
+             new Crab(9090)
+                    .addHandler(new AssetHandler("D:\\work"))
+                    .start();
+
         }catch (IOException e){
             e.printStackTrace();
         }

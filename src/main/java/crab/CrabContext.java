@@ -21,7 +21,7 @@ public class CrabContext {
         this.rootPath = rootPath;
     }
 
-    public static CrabContext iinit(String rootDir) throws FileNotFoundException{
+    public static CrabContext init(String rootDir) throws FileNotFoundException{
         CrabContext context = new CrabContext(rootDir);
         return context;
     }

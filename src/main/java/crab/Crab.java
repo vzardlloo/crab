@@ -43,10 +43,7 @@ public class Crab {
      */
     private boolean debug = true;
 
-//    /**
-//     * 线程池
-//     */
-//    ThreadPool<CrabExecutor> executorThreadPool = new DefaultThreadPool<>(50);
+
 
     private List<HttpHandler> handlers = new LinkedList<>();
 
@@ -134,10 +131,12 @@ public class Crab {
                             while ((line = session.read()) != null){
                                 if (line.isEmpty()){
                                     this.execute(new CrabExecutor(new HttpRequest(session),handlers));
+
                                 }
                             }
 
                         }
+
                     }catch (Exception ex){
                         System.out.println("Error handing client:"+key.channel());
                         if (isDebug()){

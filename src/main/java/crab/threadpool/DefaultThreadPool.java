@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * 默认的线程池
+ * 默认的线程池，暂未使用
  * job是继承Runable的变量
  * @param <Job>
  */
+
 public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job>  {
 
     //线程池最大限制数
