@@ -85,12 +85,12 @@ public class AssetHandler implements HttpHandler {
     }
 
     private void initWorkSpace(String rootPath) {
-        File file1 = new File(rootPath);
-        if (file1.mkdir()) {
+        File file = new File(rootPath);
+        if (file.mkdir()) {
             System.out.println("Now Crab's WorkSpace is at :: " + rootPath);
+            IOKit.copyFile("./workspace/favicon.ico", rootPath + "/favicon.ico");
+            IOKit.copyFile("./workspace/index.html", rootPath + "/index.html");
+            IOKit.copyFile("./workspace/crab.gif", rootPath + "/crab.gif");
         }
-        IOKit.copyFile("./workspace/favicon.ico", rootPath + "/favicon.ico");
-        IOKit.copyFile("./workspace/index.html", rootPath + "/index.html");
-        IOKit.copyFile("./workspace/crab.gif", rootPath + "/crab.gif");
     }
 }
