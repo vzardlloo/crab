@@ -57,20 +57,20 @@ public class HttpRequest {
         }
 
         //parse the headers
-        if (PlatformKit.isWindow()){
+        //if (PlatformKit.isWindow()){
             String[] lines = raw.split("\r\n");
             //start with index 1
             for (int i = 1; i < lines.length; i++) {
                 String[] keyVal = lines[i].split(":",2);
                 headers.put(keyVal[0],keyVal[1]);
             }
-        }else if (PlatformKit.isLinux() || PlatformKit.isMac()){
-            String[] lines = raw.split("\n");
-            for (int i = 1; i < lines.length; i++) {
-                String[] keyVal = lines[i].split(":",2);
-                headers.put(keyVal[0],keyVal[1]);
-            }
-        }
+//        }else if (PlatformKit.isLinux() || PlatformKit.isMac()){
+//            String[] lines = raw.split("\n");
+//            for (int i = 1; i < lines.length; i++) {
+//                String[] keyVal = lines[i].split(":",2);
+//                headers.put(keyVal[0],keyVal[1]);
+//            }
+//        }
 
         //set cookies
         if (headers.containsKey(HttpHeader.COOKIE)){

@@ -37,8 +37,6 @@ public class HttpSession {
         while (buffer.hasRemaining()){
             char c = (char) buffer.get();
             sb.append(c);
-            //if (PlatformKit.isWindow()) {
-                //it is designed to remove separators on windows
                 if (c == '\n' && l == '\r') {
                     //mark position
                     mark = buffer.position();
@@ -49,13 +47,7 @@ public class HttpSession {
                 }
                 l = c;
 
-//            }else if (PlatformKit.isLinux() || PlatformKit.isMac()){
-//                if (c == '\n'){
-//                    mark = buffer.position();
-//                    readLines.append(sb);
-//                    return sb.substring(0,sb.length() - 1);
-//                }
-//            }
+
         }
 
         return null;

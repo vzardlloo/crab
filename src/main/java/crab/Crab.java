@@ -53,7 +53,7 @@ public class Crab {
 
     public Crab() throws IOException {
         this(crabConfiguration.getIntValue("port"));
-        addHandler(new AssetHandler(crabConfiguration.getValue("path")));
+        addHandler(new AssetHandler(crabConfiguration.getValue("workspace")));
     }
 
     public Crab(int port) throws IOException {
@@ -143,6 +143,7 @@ public class Crab {
                                 }
 
                             }
+
 
                         }
 

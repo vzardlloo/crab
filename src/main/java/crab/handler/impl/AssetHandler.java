@@ -6,6 +6,7 @@ import crab.handler.HttpHandler;
 import crab.http.HttpRequest;
 import crab.http.HttpResponse;
 import crab.http.HttpStatus;
+import crab.kit.IOKit;
 import crab.kit.PathKit;
 
 import java.io.File;
@@ -48,16 +49,20 @@ public class AssetHandler implements HttpHandler {
         if (uri.equals("/")) {
             uri = "/" + CrabConst.DEFAULT_ROOTFILE;
         }
-
+        //处理rootPath
+        if (rootPath == null) {
+            rootPath = rootFile.getAbsolutePath();
+            if (rootPath.endsWith("/") || rootPath.endsWith(".")) {
+                rootPath = rootPath.substring(0, rootPath.length() - 1);
+            }
+        }
+        //初始化web服务器工作空间
+        initWorkSpace(rootPath);
         File file = new File(rootFile, uri);
+
         if (file.exists() && !file.isDirectory()) {
             try {
-                if (rootPath == null) {
-                    rootPath = rootFile.getAbsolutePath();
-                    if (rootPath.endsWith("/") || rootPath.endsWith(".")) {
-                        rootPath = rootPath.substring(0, rootPath.length() - 1);
-                    }
-                }
+
                 //返回此抽象路径名的规范路径名字符串
                 String requestPath = file.getCanonicalPath();
                 if (requestPath.endsWith("/")) {
@@ -77,5 +82,15 @@ public class AssetHandler implements HttpHandler {
             }
         }
         return null;
+    }
+
+    private void initWorkSpace(String rootPath) {
+        File file1 = new File(rootPath);
+        if (file1.mkdir()) {
+            System.out.println("Now Crab's WorkSpace is at :: " + rootPath);
+        }
+        IOKit.copyFile("./workspace/favicon.ico", rootPath + "/favicon.ico");
+        IOKit.copyFile("./workspace/index.html", rootPath + "/index.html");
+        IOKit.copyFile("./workspace/crab.gif", rootPath + "/crab.gif");
     }
 }

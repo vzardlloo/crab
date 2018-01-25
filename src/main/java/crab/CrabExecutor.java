@@ -24,7 +24,7 @@ public class CrabExecutor implements Runnable{
             HttpResponse response = httpHandler.handle(httpRequest);
             HttpSession httpSession = httpRequest.getSession();
             httpSession.sendResponse(response);
-            httpSession.close();
+            //httpSession.close();
             return;
         }
     }
