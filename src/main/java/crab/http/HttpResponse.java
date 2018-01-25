@@ -1,8 +1,8 @@
 package crab.http;
 
-import blade.kit.IOKit;
-import blade.kit.StringKit;
-import blade.kit.io.CharStreams;
+
+import crab.kit.IOKit;
+import crab.kit.StringKit;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -142,7 +142,7 @@ public class HttpResponse {
         }
         if (null != response){
             try {
-                return CharStreams.toString(new InputStreamReader(response,"UTF-8"));
+                return StringKit.toString(new InputStreamReader(response, "UTF-8"));
             }catch (IOException e){
                 e.printStackTrace();
             }

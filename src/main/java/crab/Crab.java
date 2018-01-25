@@ -1,13 +1,13 @@
 package crab;
 
 
-import blade.kit.log.Logger;
+import crab.config.CrabConfiguration;
+import crab.config.impl.XmlConfiguration;
 import crab.handler.HttpHandler;
+import crab.handler.impl.AssetHandler;
 import crab.http.HttpRequest;
 import crab.http.HttpResponse;
 import crab.http.HttpSession;
-
-
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -23,8 +23,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Crab {
-
-    private static final Logger LOGGER = Logger.getLogger(Crab.class);
 
 
     private Selector selector;
@@ -44,66 +42,77 @@ public class Crab {
     private boolean debug = true;
 
 
-
     private List<HttpHandler> handlers = new LinkedList<>();
 
-    private String contextPath = "/";
+    private static String contextPath = "/";
+
+    private static String configFilePath = "/crab.xml";
+
+    private static CrabConfiguration crabConfiguration = new XmlConfiguration(configFilePath);
 
 
-    public Crab(int port) throws IOException{
+    public Crab() throws IOException {
+        this(crabConfiguration.getIntValue("port"));
+        addHandler(new AssetHandler(crabConfiguration.getValue("path")));
+    }
+
+    public Crab(int port) throws IOException {
         selector = Selector.open();
         server = ServerSocketChannel.open();
         this.bind(port);
     }
 
-    private Crab bind(InetSocketAddress address) throws IOException{
+    private Crab bind(InetSocketAddress address) throws IOException {
         server.socket().bind(address);
         server.configureBlocking(false);
         server.register(selector, SelectionKey.OP_ACCEPT);
         return this;
     }
 
-    public Crab bind(int port) throws IOException{
+    private Crab bind(int port) throws IOException {
         return bind(new InetSocketAddress(port));
     }
 
+
     /**
      * 增加一个处理器
+     *
      * @param httpHandler
      * @return
      */
-    public Crab addHandler(HttpHandler httpHandler){
+    public Crab addHandler(HttpHandler httpHandler) {
         handlers.add(httpHandler);
         return this;
     }
 
     /**
      * 移除一个处理器
+     *
      * @param httpHandler
      */
-    public void removeHandler(HttpHandler httpHandler){
+    public void removeHandler(HttpHandler httpHandler) {
         handlers.remove(httpHandler);
     }
 
     /**
      * 启动服务
      */
-    public void start(){
+    public void start() {
         isRunning = true;
-        LOGGER.info("Crab is Listening on port :: "+server.socket().getLocalPort());
-        while (isRunning){
+        System.out.println("Crab is Listening on port :: " + server.socket().getLocalPort());
+        while (isRunning) {
             try {
                 selector.selectNow();
                 Iterator<SelectionKey> i = selector.selectedKeys().iterator();
-                while (i.hasNext()){
+                while (i.hasNext()) {
                     SelectionKey key = i.next();
                     i.remove();
-                    if (!key.isValid()){
+                    if (!key.isValid()) {
                         continue;
                     }
                     try {
                         //获得新连接
-                        if (key.isAcceptable()){
+                        if (key.isAcceptable()) {
                             //接受socket
                             SocketChannel client = server.accept();
 
@@ -111,14 +120,14 @@ public class Crab {
                             client.configureBlocking(false);
 
                             //注册选择器到socket
-                            client.register(selector,SelectionKey.OP_READ);
-                        }else if (key.isReadable()){
+                            client.register(selector, SelectionKey.OP_READ);
+                        } else if (key.isReadable()) {
                             //获取socket通道
                             SocketChannel client = (SocketChannel) key.channel();
                             //获取会话
                             HttpSession session = (HttpSession) key.attachment();
 
-                            if (null == session){
+                            if (null == session) {
                                 session = new HttpSession(client);
                                 key.attach(session);
                             }
@@ -128,29 +137,29 @@ public class Crab {
 
                             //消息解码
                             String line;
-                            while ((line = session.read()) != null){
-                                if (line.isEmpty()){
-                                    this.execute(new CrabExecutor(new HttpRequest(session),handlers));
-
+                            while ((line = session.read()) != null) {
+                                if (line.isEmpty()) {
+                                    this.execute(new CrabExecutor(new HttpRequest(session), handlers));
                                 }
+
                             }
 
                         }
 
-                    }catch (Exception ex){
-                        System.out.println("Error handing client:"+key.channel());
-                        if (isDebug()){
+                    } catch (Exception ex) {
+                        System.out.println("Error handing client:" + key.channel());
+                        if (isDebug()) {
                             ex.printStackTrace();
-                        }else {
+                        } else {
                             System.err.println(ex);
-                            System.err.println("\tat "+ex.getStackTrace()[0]);
+                            System.err.println("\tat " + ex.getStackTrace()[0]);
                         }
-                        if (key.attachment() instanceof HttpSession){
+                        if (key.attachment() instanceof HttpSession) {
                             ((HttpSession) key.attachment()).close();
                         }
                     }
                 }
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 //停止服务
                 this.shutdown();
                 throw new RuntimeException(ex);
@@ -159,8 +168,9 @@ public class Crab {
     }
 
     private ExecutorService executor;
-    private Future<?> execute(Runnable runnable){
-        if (this.executor == null){
+
+    private Future<?> execute(Runnable runnable) {
+        if (this.executor == null) {
             this.executor = Executors.newCachedThreadPool();
         }
         return executor.submit(runnable);
@@ -168,13 +178,14 @@ public class Crab {
 
     /**
      * 处理请求
+     *
      * @param request
      * @throws IOException
      */
-    protected void handle(HttpRequest request) throws IOException{
-        for (HttpHandler httpHandler : handlers){
+    protected void handle(HttpRequest request) throws IOException {
+        for (HttpHandler httpHandler : handlers) {
             HttpResponse resp = httpHandler.handle(request);
-            if (resp != null){
+            if (resp != null) {
                 request.getSession().sendResponse(resp);
                 return;
             }
@@ -185,12 +196,12 @@ public class Crab {
     /**
      * 停止服务
      */
-    public void shutdown(){
+    public void shutdown() {
         isRunning = false;
         try {
             selector.close();
             server.close();
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -216,5 +227,11 @@ public class Crab {
         return handlers;
     }
 
+    public static String getConfigFilePath() {
+        return configFilePath;
+    }
 
+    public static void setConfigFilePath(String configFilePath) {
+        Crab.configFilePath = configFilePath;
+    }
 }

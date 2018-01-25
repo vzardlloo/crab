@@ -1,7 +1,6 @@
 package crab.handler.impl;
 
 
-import blade.kit.log.Logger;
 import crab.constant.CrabConst;
 import crab.handler.HttpHandler;
 import crab.http.HttpRequest;
@@ -21,7 +20,7 @@ import java.net.URLDecoder;
  */
 public class AssetHandler implements HttpHandler{
 
-    private static final  Logger LOGGER = Logger.getLogger(AssetHandler.class);
+
 
     private File rootFile;
 
@@ -44,7 +43,7 @@ public class AssetHandler implements HttpHandler{
         }catch (UnsupportedEncodingException e){
             uri = uri.replace("%20"," ");
         }
-        LOGGER.info("Request URL > "+ uri);
+        System.out.println("Request URL > " + uri);
 
         uri = PathKit.fixPath(uri);
 

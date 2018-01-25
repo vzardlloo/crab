@@ -1,9 +1,7 @@
 package crab.http;
 
 
-import com.sun.deploy.net.HttpResponse;
 import crab.constant.CrabConst;
-import crab.kit.PlatformKit;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -39,7 +37,7 @@ public class HttpSession {
         while (buffer.hasRemaining()){
             char c = (char) buffer.get();
             sb.append(c);
-            if (PlatformKit.isWindow()) {
+            //if (PlatformKit.isWindow()) {
                 //it is designed to remove separators on windows
                 if (c == '\n' && l == '\r') {
                     //mark position
@@ -51,13 +49,13 @@ public class HttpSession {
                 }
                 l = c;
 
-            }else if (PlatformKit.isLinux() || PlatformKit.isMac()){
-                if (c == '\n'){
-                    mark = buffer.position();
-                    readLines.append(sb);
-                    return sb.substring(0,sb.length() - 1);
-                }
-            }
+//            }else if (PlatformKit.isLinux() || PlatformKit.isMac()){
+//                if (c == '\n'){
+//                    mark = buffer.position();
+//                    readLines.append(sb);
+//                    return sb.substring(0,sb.length() - 1);
+//                }
+//            }
         }
 
         return null;
@@ -82,7 +80,7 @@ public class HttpSession {
         channel.write(CrabConst.ENCODER.encode(CharBuffer.wrap(line + "\r\n")));
     }
 
-    public void sendResponse(crab.http.HttpResponse response){
+    public void sendResponse(HttpResponse response) {
         response.addDefaultHeaders();
         try{
             writeLine(response.getVersion()+" "+response.getStatusCode()+" "+ response.getReason());
