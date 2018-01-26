@@ -48,5 +48,5 @@ public static void main(String[] args) throws IOException {
 
 一切工作完成之后,Crab在本地启动后，在浏览器地址栏输入：`localhost：端口号`，会看到Crab的欢迎页面：
 ![](http://oo3aq3ac8.bkt.clouddn.com/crab.png)
-这时你就可以把你得`html`页面等放入你的Crab工作空间里，然后通过浏览器便可访问到它们。
+这时你就可以把你的`html`页面等放入你的Crab工作空间里，然后通过浏览器便可访问到它们。
 
