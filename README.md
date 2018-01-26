@@ -5,7 +5,7 @@ Crab是一款简单的、轻量级的、采用Java开发的http服务器,主要�
 # 特点
 + 简单小巧，便于帮助理解http服务器的基本工作原理
 + 配置使用简单
-+ 依赖很少,依赖了`lombok`来简化代码书写，和`dom4j`来操作配置文件
++ 依赖很少,仅依赖了`lombok`来简化代码书写，和`dom4j`来操作配置文件
 
 注：在运行源码时要安装`lombok`插件,关于[lombok](https://projectlombok.org/)
 
