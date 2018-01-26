@@ -10,9 +10,7 @@ import java.nio.channels.FileChannel;
 public class Test {
 
     public static void main(String[] args) throws IOException {
-
         new Crab().start();
-
     }
 
 

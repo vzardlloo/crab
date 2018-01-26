@@ -232,7 +232,8 @@ public class Crab {
         return configFilePath;
     }
 
-    public static void setConfigFilePath(String configFilePath) {
+    public Crab setConfigFilePath(String configFilePath) {
         Crab.configFilePath = configFilePath;
+        return this;
     }
 }
