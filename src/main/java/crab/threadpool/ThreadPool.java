@@ -8,7 +8,7 @@ package crab.threadpool;
  * 2.得到正在等待的线程数.
  * 3.增加工作线程.
  * 4.减少工作线程.
- * @param <Job>
+ *
  */
 public interface ThreadPool<Job extends Runnable> {
 

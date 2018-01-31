@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 默认的线程池，暂未使用
  * job是继承Runable的变量
- * @param <Job>
+ *
  */
 
 public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job>  {
@@ -40,7 +40,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
 
     /**
      * 初始化worker
-     * @param num
+     *
      */
     private void initializeWorkers(int num){
         for (int i = 0; i < num; i++){

@@ -33,7 +33,7 @@ public class ByteBufferBucket {
     /**
      * 新分配一个buffer,容量不够则扩容，并且bufferCount加一
      *
-     * @param newSize
+     * @param newSize 新的容量
      */
     public void allocateNewBuffer(int newSize) {
         int delta = newSize - this.total;

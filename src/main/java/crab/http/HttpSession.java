@@ -26,11 +26,7 @@ public class HttpSession {
         return readLines.toString();
     }
 
-    /**
-     * Try to read a line
-     * @return
-     * @throws IOException
-     */
+
     public String read() throws IOException{
         StringBuilder sb = new StringBuilder();
         int l = -1;
@@ -55,10 +51,6 @@ public class HttpSession {
     }
 
 
-    /**
-     * Get more data from the stream
-     * @throws IOException
-     */
     public void readData() throws IOException{
         buffer.limit(buffer.capacity());
         int read = channel.read(buffer);

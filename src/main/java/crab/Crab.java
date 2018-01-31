@@ -79,8 +79,8 @@ public class Crab {
     /**
      * 增加一个处理器
      *
-     * @param httpHandler
-     * @return
+     * @param httpHandler http处理器
+     * @return crab
      */
     public Crab addHandler(HttpHandler httpHandler) {
         handlers.add(httpHandler);
@@ -90,7 +90,7 @@ public class Crab {
     /**
      * 移除一个处理器
      *
-     * @param httpHandler
+     * @param httpHandler http处理器
      */
     public void removeHandler(HttpHandler httpHandler) {
         handlers.remove(httpHandler);
@@ -181,9 +181,8 @@ public class Crab {
 
     /**
      * 处理请求
-     *
-     * @param request
-     * @throws IOException
+     * @param request Httprequest
+     * @throws IOException io异常
      */
     protected void handle(HttpRequest request) throws IOException {
         for (HttpHandler httpHandler : handlers) {

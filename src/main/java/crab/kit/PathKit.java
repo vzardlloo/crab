@@ -8,8 +8,8 @@ public class PathKit {
 
     /**
      * 对路径输入进行容错处理
-     * @param path
-     * @return
+     * @param path 路径
+     * @return string
      */
     public static String fixPath(String path){
         if (path == null){

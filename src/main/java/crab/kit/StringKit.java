@@ -7,12 +7,11 @@ import java.io.IOException;
 
 public class StringKit {
 
-    /**
-     * 判断一个字符串是否是由空格组成，不是则返回true
-     *
-     * @param str
-     * @return
-     */
+    //    /**
+//     * 判断一个字符串是否是由空格组成，不是则返回true
+//     *  @param str 字符串
+//     *  @return boolean
+//     */
     public static boolean isNotBlank(String str) {
         if (str != null && str.length() != 0) {
             for (int i = 0; i < str.length(); i++) {
