@@ -13,7 +13,20 @@ Crab是一款简单的、轻量级的、采用Java开发的http服务器,主要�
 * [x] 基本功能完成
 * [ ] 开发更多功能
 # 使用
+首先添加依赖：
+```xml
+<dependency>
+    <groupId>io.github.vzardlloo</groupId>
+    <artifactId>crab</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+or
+```
+compile 'io.github.vzardlloo:crab:1.0'
+```
 Crab的使用非常简单：
+
 首先在项目的`resource`目录下创建`crab.xml`,内容为
 ```
 <crabConfig>
