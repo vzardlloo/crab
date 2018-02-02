@@ -58,6 +58,8 @@ public class AssetHandler implements HttpHandler {
         }
         //初始化web服务器工作空间
         initWorkSpace(rootPath);
+
+
         File file = new File(rootFile, uri);
 
         if (file.exists() && !file.isDirectory()) {
@@ -81,16 +83,14 @@ public class AssetHandler implements HttpHandler {
                 return new HttpResponse().reason(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.toString());
             }
         }
+        if (!file.exists()) {
+            return new HttpResponse().reason(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString());
+        }
         return null;
     }
 
     private void initWorkSpace(String rootPath) {
-        File file = new File(rootPath);
-        if (file.mkdir()) {
-            System.out.println("Now Crab's WorkSpace is at :: " + rootPath);
-            IOKit.copyFile("./workspace/favicon.ico", rootPath + "/favicon.ico");
-            IOKit.copyFile("./workspace/index.html", rootPath + "/index.html");
-            IOKit.copyFile("./workspace/crab.gif", rootPath + "/crab.gif");
-        }
+        System.out.println("Crab's WorkSpace is at :: " + rootPath);
+        IOKit.copyFile("./workspace", rootPath);
     }
 }

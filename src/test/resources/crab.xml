@@ -1,4 +1,4 @@
 <crabConfig>
     <item key="port" value="9090"/>
-    <item key="workspace" value="D:/ctest"/>
+    <item key="workspace" value="D:/atest"/>
 </crabConfig>

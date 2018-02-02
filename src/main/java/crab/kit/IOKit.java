@@ -3,10 +3,7 @@ package crab.kit;
 
 import crab.kit.assist.ByteBufferBucket;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
@@ -27,25 +24,53 @@ public class IOKit {
         return os.toArray();
     }
 
-    public static void copyFile(String source, String target) {
-        try {
-
-            FileInputStream inputStream = new FileInputStream(source);
-            FileChannel in = inputStream.getChannel();
-            FileOutputStream outputStream = new FileOutputStream(target);
-            FileChannel out = outputStream.getChannel();
-
-            ByteBuffer buffer = ByteBuffer.allocate(16);
-            while (in.read(buffer) != -1) {
-                buffer.flip();
-                out.write(buffer);
-                buffer.clear();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    /**
+     * 复制文件及文件夹
+     *
+     * @param src 源文件path
+     * @param tar 目标文件path
+     */
+    public static void copyFile(String src, String tar) {
+        File source = new File(src);
+        File target = new File(tar);
+        copyFile(source, target);
     }
 
+    /**
+     * 复制文件及文件夹
+     *
+     * @param source 源文件
+     * @param target 目标文件
+     */
+    public static void copyFile(File source, File target) {
+        if (source.isDirectory()) {
+            if (!target.exists()) {
+                target.mkdir();
+            }
+            String[] fileList = source.list();
+            for (String file : fileList) {
+                File srcFile = new File(source, file);
+                File tarFile = new File(target, file);
+                copyFile(srcFile.getPath(), tarFile.getPath());
+            }
+        } else {
+            try {
+
+                FileInputStream inputStream = new FileInputStream(source);
+                FileChannel in = inputStream.getChannel();
+                FileOutputStream outputStream = new FileOutputStream(target);
+                FileChannel out = outputStream.getChannel();
+
+                ByteBuffer buffer = ByteBuffer.allocate(16);
+                while (in.read(buffer) != -1) {
+                    buffer.flip();
+                    out.write(buffer);
+                    buffer.clear();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
