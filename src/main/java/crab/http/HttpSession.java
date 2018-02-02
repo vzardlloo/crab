@@ -18,30 +18,45 @@ public class HttpSession {
     private StringBuilder readLines = new StringBuilder();
     private int mark = 0;
 
+    /**
+     * HttpSession构造函数
+     *
+     * @param channel socket通道
+     */
     public HttpSession(SocketChannel channel){
         this.channel = channel;
     }
 
-    public String line(){
+    /**
+     * 获取所有报文数据
+     * @return 报文数据
+     */
+    public String line() {
+        System.out.println(readLines.toString());
         return readLines.toString();
     }
 
 
+    /**
+     * 读取一行，每行以换行分割符分割，不包含分割符
+     * @return 一行数据
+     * @throws IOException IO异常
+     */
     public String read() throws IOException{
         StringBuilder sb = new StringBuilder();
         int l = -1;
         while (buffer.hasRemaining()){
             char c = (char) buffer.get();
             sb.append(c);
-                if (c == '\n' && l == '\r') {
-                    //mark position
-                    mark = buffer.position();
-                    // add to the total line
-                    readLines.append(sb);
-                    // return with no line separators
-                    return sb.substring(0, sb.length() - 2);
-                }
-                l = c;
+            if (c == '\n' && l == '\r') {
+                //mark position
+                mark = buffer.position();
+                // add to the total line
+                readLines.append(sb);
+                // return with no line separators
+                return sb.substring(0, sb.length() - 2);
+            }
+            l = c;
 
 
         }

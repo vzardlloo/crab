@@ -30,13 +30,24 @@ public class HttpResponse {
 
     }
 
-    public HttpResponse(HttpStatus status,String body){
+    /**
+     * HttpResponse 的构造方法
+     *
+     * @param status Http状态
+     * @param body   响应报文
+     */
+    public HttpResponse(HttpStatus status, String body){
         this.status = status;
         this.body = body;
         this.length = body.length();
     }
 
-    public HttpResponse(HttpStatus status,InputStream inputStream){
+    /**
+     * HttpResponse 的构造方法
+     * @param status Http状态
+     * @param inputStream 输入流
+     */
+    public HttpResponse(HttpStatus status, InputStream inputStream){
         this.status = status;
         this.response = inputStream;
         try {
@@ -46,6 +57,9 @@ public class HttpResponse {
         }
     }
 
+    /**
+     * 设置默认的ResponseHead
+     */
     public void addDefaultHeaders(){
         headers.put(HttpHeader.DATE,new Date().toString());
         headers.put(HttpHeader.SERVER,"crab");
@@ -117,6 +131,10 @@ public class HttpResponse {
         return response;
     }
 
+    /**
+     * 把响应体转化为字节数组
+     * @return byte数组
+     */
     public byte[] bytes(){
         try {
             if (StringKit.isNotBlank(body)){
@@ -136,6 +154,10 @@ public class HttpResponse {
         return null;
     }
 
+    /**
+     * 将响应体的格式统一，如果是InputStream则转成String
+     * @return 响应体
+     */
     public String body(){
         if (StringKit.isNotBlank(body)){
             return body;

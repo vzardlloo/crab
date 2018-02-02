@@ -121,7 +121,7 @@ public class Crab {
                             //非阻塞模式
                             client.configureBlocking(false);
 
-                            //注册选择器到socket
+                            //注socket到选择器，只读模式
                             client.register(selector, SelectionKey.OP_READ);
                         } else if (key.isReadable()) {
                             //获取socket通道
