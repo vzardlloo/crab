@@ -37,7 +37,7 @@ public class HttpKit {
 
     /**
      * 将字符串以‘-’为分隔符格式化为首字母大写
-     * 例如：<p>abc-def-ghj ==> Abc-Def-Ghj</p>
+     * 例如：<blockquote><pre>abc-def-ghj to Abc-Def-Ghj</pre></blockquote>
      * @param header 字符串
      * @return 处理后的字符串
      */
