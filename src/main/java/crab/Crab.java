@@ -8,7 +8,6 @@ import crab.handler.impl.AssetHandler;
 import crab.http.HttpRequest;
 import crab.http.HttpResponse;
 import crab.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

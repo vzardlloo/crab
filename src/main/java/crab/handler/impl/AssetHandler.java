@@ -1,6 +1,7 @@
 package crab.handler.impl;
 
 
+import crab.Crab;
 import crab.constant.CrabConst;
 import crab.handler.HttpHandler;
 import crab.http.HttpRequest;
@@ -91,6 +92,12 @@ public class AssetHandler implements HttpHandler {
 
     private void initWorkSpace(String rootPath) {
         System.out.println("Crab's WorkSpace is at :: " + rootPath);
-        IOKit.copyFile("./workspace", rootPath);
+        String resourcePath = Thread.currentThread().getContextClassLoader().getResource("").getPath() + "workspace/";
+        IOKit.copyFile(resourcePath, rootPath);
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        new Crab().start();
     }
 }
