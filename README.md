@@ -18,7 +18,7 @@ Crab是一款简单的、轻量级的、采用Java开发的http服务器,主要�
 <dependency>
     <groupId>io.github.vzardlloo</groupId>
     <artifactId>crab</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 or
