@@ -23,7 +23,7 @@ Crab是一款简单的、轻量级的、采用Java开发的http服务器,主要�
 ```
 or
 ```
-compile 'io.github.vzardlloo:crab:1.0'
+compile 'io.github.vzardlloo:crab:${latest version}'
 ```
 Crab的使用非常简单：
 
