@@ -92,12 +92,13 @@ public class AssetHandler implements HttpHandler {
 
     private void initWorkSpace(String rootPath) {
         System.out.println("Crab's WorkSpace is at :: " + rootPath);
-        String resourcePath = Thread.currentThread().getContextClassLoader().getResource("").getPath() + "workspace/";
+        String resourcePath = Crab.class.getResource("/workspace").getPath();
         IOKit.copyFile(resourcePath, rootPath);
     }
 
 
-    public static void main(String[] args) throws IOException {
-        new Crab().start();
-    }
+//    public static void main(String[] args) throws IOException {
+//        String path = Crab.class.getResource("/workspace").getPath();
+//        System.out.println(path);
+//    }
 }
