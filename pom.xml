@@ -6,7 +6,7 @@
     <description>a simple web server</description>
     <groupId>io.github.vzardlloo</groupId>
     <artifactId>crab</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
     <name>crab</name>
     <url>https://github.com/vzard/crab</url>
