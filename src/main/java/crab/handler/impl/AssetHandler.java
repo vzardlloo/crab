@@ -10,11 +10,10 @@ import crab.http.HttpStatus;
 import crab.kit.IOKit;
 import crab.kit.PathKit;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLDecoder;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * 基于磁盘静态文件实现的Handler
@@ -90,15 +89,24 @@ public class AssetHandler implements HttpHandler {
         return null;
     }
 
-    private void initWorkSpace(String rootPath) {
+    private static void initWorkSpace(String rootPath) {
         System.out.println("Crab's WorkSpace is at :: " + rootPath);
-        String resourcePath = Crab.class.getResource("/workspace").getPath();
-        IOKit.copyFile(resourcePath, rootPath);
+        String resourcePath = "";
+        if (Crab.isTest() == true) {
+            resourcePath = Crab.class.getResource("/workspace").getPath();
+            IOKit.copyFile(resourcePath, rootPath);
+        } else {
+            File rootfile = new File(rootPath);
+            rootfile.mkdirs();
+            List<InputStream> streamList = IOKit.getInputStreamList("/workspace/crab.gif", "/workspace/favicon.ico", "/workspace/index.html");
+            IOKit.copyJarFile(streamList.get(0), new File(rootPath + "/crab.gif"));
+            IOKit.copyJarFile(streamList.get(1), new File(rootPath + "/favicon.ico"));
+            IOKit.copyJarFile(streamList.get(2), new File(rootPath + "/index.html"));
+        }
     }
 
+    public static void main(String[] args) {
+        initWorkSpace("D:/teds");
+    }
 
-//    public static void main(String[] args) throws IOException {
-//        String path = Crab.class.getResource("/workspace").getPath();
-//        System.out.println(path);
-//    }
 }

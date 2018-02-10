@@ -42,6 +42,11 @@ public class Crab {
      */
     private boolean debug = true;
 
+    /**
+     * 测试
+     */
+    private static boolean test = false;
+
 
     private List<HttpHandler> handlers = new LinkedList<>();
 
@@ -230,6 +235,15 @@ public class Crab {
 
     public static String getConfigFilePath() {
         return configFilePath;
+    }
+
+    public static boolean isTest() {
+        return test;
+    }
+
+    public Crab setTest(boolean test) {
+        this.test = test;
+        return this;
     }
 
     public Crab setConfigFilePath(String configFilePath) {

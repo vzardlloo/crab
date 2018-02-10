@@ -1,11 +1,16 @@
 package crab.kit;
 
 
+import crab.Crab;
 import crab.kit.assist.ByteBufferBucket;
 
 import java.io.*;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * IO工具类
@@ -72,5 +77,45 @@ public class IOKit {
             }
         }
     }
+
+    public static void copyJarFile(InputStream source, File target) {
+
+        try {
+
+            InputStream in = source;
+            FileOutputStream out = new FileOutputStream(target);
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
+                for (int i = 0; i < buffer.length; i++) {
+                    //System.out.print((char)buffer[i]);
+                    buffer[i] = 0;
+                }
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                source.close();
+            } catch (IOException e) {
+
+            }
+        }
+    }
+
+
+    public static List<InputStream> getInputStreamList(String... strings) {
+        List<InputStream> streamList = new ArrayList<>();
+        for (String s : strings) {
+            InputStream stream = Crab.class.getResourceAsStream(s);
+            streamList.add(stream);
+        }
+        return streamList;
+    }
+
 
 }
