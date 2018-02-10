@@ -1,6 +1,7 @@
 package crab.http;
 
 
+import crab.Crab;
 import crab.constant.CrabConst;
 import lombok.Getter;
 
@@ -32,7 +33,10 @@ public class HttpSession {
      * @return 报文数据
      */
     public String line() {
-        System.out.println(readLines.toString());
+        if (Crab.isDebug()) {
+            System.out.println("request message：");
+            System.out.println(readLines.toString());
+        }
         return readLines.toString();
     }
 

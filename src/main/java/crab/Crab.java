@@ -40,7 +40,7 @@ public class Crab {
     /**
      * debug模式
      */
-    private boolean debug = true;
+    private static boolean debug = false;
 
     /**
      * 测试
@@ -225,7 +225,7 @@ public class Crab {
         return isRunning;
     }
 
-    public boolean isDebug() {
+    public static boolean isDebug() {
         return debug;
     }
 
@@ -243,6 +243,11 @@ public class Crab {
 
     public Crab setTest(boolean test) {
         this.test = test;
+        return this;
+    }
+
+    public Crab setDebug(boolean debug) {
+        this.debug = debug;
         return this;
     }
 

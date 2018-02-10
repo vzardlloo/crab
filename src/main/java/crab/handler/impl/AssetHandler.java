@@ -105,8 +105,5 @@ public class AssetHandler implements HttpHandler {
         }
     }
 
-    public static void main(String[] args) {
-        initWorkSpace("D:/teds");
-    }
 
 }
